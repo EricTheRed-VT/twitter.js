@@ -1,5 +1,6 @@
 const express = require( 'express' );
 const app = express();
+const routes = require('./routes/');
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 const env = nunjucks.configure('views', {
@@ -14,15 +15,4 @@ app.listen(port, (request, response) => {
 });
 
 app.use(morgan('combined'));
-
-app.get('/', (req,res,next) => {
-	res.render('index.html', { 
-		title: 'Hall of Fame',
-		people: [
-			{name: 'Gandalf'},
-			{name: 'Frodo'},
-			{name: 'Hermoine'}
-		]
-	});
-});
-
+app.use('/', routes);
